@@ -27,25 +27,26 @@ class PaymentGatewayControllerTest {
 
   @Test
   void whenPaymentWithIdExistThenCorrectPaymentIsReturned() throws Exception {
-    PaymentResponse payment = new PaymentResponse();
-    payment.setId(UUID.randomUUID());
-    payment.setAmount(10);
-    payment.setCurrency("USD");
-    payment.setStatus(PaymentStatus.AUTHORIZED);
-    payment.setExpiryMonth(12);
-    payment.setExpiryYear(2024);
-    payment.setCardNumberLastFour(4321);
+    PaymentResponse payment = new PaymentResponse(
+        UUID.randomUUID(),
+        PaymentStatus.AUTHORIZED,
+        4321,
+        12,
+        2024,
+        "USD",
+        10
+    );
 
     paymentsRepository.add(payment);
 
-    mvc.perform(MockMvcRequestBuilders.get("/payment/" + payment.getId()))
+    mvc.perform(MockMvcRequestBuilders.get("/payment/" + payment.id()))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.status").value(payment.getStatus().getName()))
-        .andExpect(jsonPath("$.card_number_last_four").value(payment.getCardNumberLastFour()))
-        .andExpect(jsonPath("$.expiry_month").value(payment.getExpiryMonth()))
-        .andExpect(jsonPath("$.expiry_year").value(payment.getExpiryYear()))
-        .andExpect(jsonPath("$.currency").value(payment.getCurrency()))
-        .andExpect(jsonPath("$.amount").value(payment.getAmount()));
+        .andExpect(jsonPath("$.status").value(payment.status().getName()))
+        .andExpect(jsonPath("$.card_number_last_four").value(payment.cardNumberLastFour()))
+        .andExpect(jsonPath("$.expiry_month").value(payment.expiryMonth()))
+        .andExpect(jsonPath("$.expiry_year").value(payment.expiryYear()))
+        .andExpect(jsonPath("$.currency").value(payment.currency()))
+        .andExpect(jsonPath("$.amount").value(payment.amount()));
   }
 
   @Test
