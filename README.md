@@ -37,3 +37,12 @@ Key architectural decisions are documented as ADRs in docs/adr/:
 - [ADR-002](docs/adr/ADR-002.md): Request Validation Strategy and Rejected Payment Handling
 - [ADR-003](docs/adr/ADR-003.md): Acquiring Bank Integration and Error Handling
 - [ADR-004](docs/adr/ADR-004.md): Thread-Safe In-Memory Storage & Immutability
+
+### Assumptions:
+- Supported currencies: Validated against USD, GBP, and EUR (3 ISO 4217 codes).
+- Card expiry: A card is valid through the end of its expiry month (YearMonth). 
+- Amount: Integer in minor currency units and must be > 0. 
+- PCI & data types: card_number_last_four and cvv are modeled as String to preserve leading zeros; full card numbers and CVVs are
+never stored, returned, or logged. 
+- Persistence: Authorized and Declined payments are stored in-memory (ConcurrentHashMap); Rejected (400) and upstream failures (502)
+are not persisted.
