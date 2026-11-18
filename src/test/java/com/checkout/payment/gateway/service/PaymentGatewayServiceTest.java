@@ -68,7 +68,7 @@ class PaymentGatewayServiceTest {
 
     assertNotNull(response.id());
     assertEquals(PaymentStatus.AUTHORIZED, response.status());
-    assertEquals(8877, response.cardNumberLastFour());
+    assertEquals("8877", response.cardNumberLastFour());
     assertEquals(request.getExpiryMonth(), response.expiryMonth());
     assertEquals(request.getExpiryYear(), response.expiryYear());
     assertEquals("GBP", response.currency());
@@ -94,7 +94,7 @@ class PaymentGatewayServiceTest {
 
     assertNotNull(response.id());
     assertEquals(PaymentStatus.DECLINED, response.status());
-    assertEquals(8878, response.cardNumberLastFour());
+    assertEquals("8878", response.cardNumberLastFour());
     verify(paymentsRepository).add(response);
   }
 
@@ -135,7 +135,7 @@ class PaymentGatewayServiceTest {
     PaymentResponse expected = new PaymentResponse(
         id,
         PaymentStatus.AUTHORIZED,
-        4321,
+        "4321",
         12,
         2026,
         "GBP",

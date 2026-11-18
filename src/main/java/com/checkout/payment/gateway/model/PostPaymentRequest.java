@@ -31,8 +31,8 @@ public class PostPaymentRequest implements Serializable {
   }
 
   @JsonIgnore
-  public int getCardNumberLastFour() {
-    return Integer.parseInt(cardNumber.substring(cardNumber.length() - 4));
+  public String getCardNumberLastFour() {
+    return cardNumber.substring(cardNumber.length() - 4);
   }
 
   public int getExpiryMonth() {

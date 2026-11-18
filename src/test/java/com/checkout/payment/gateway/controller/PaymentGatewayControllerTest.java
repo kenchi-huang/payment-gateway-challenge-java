@@ -30,7 +30,7 @@ class PaymentGatewayControllerTest {
     PaymentResponse payment = new PaymentResponse(
         UUID.randomUUID(),
         PaymentStatus.AUTHORIZED,
-        4321,
+        "4321",
         12,
         2024,
         "USD",
