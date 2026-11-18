@@ -81,6 +81,16 @@ class PaymentValidatorTest {
     assertFalse(errors.isEmpty());
   }
 
+  @ParameterizedTest
+  @ValueSource(ints = {10000, 2_000_000_000, -1})
+  void whenExpiryYearIsInvalidThenErrorIsReturned(int year) {
+    PostPaymentRequest request = validRequest();
+    request.setExpiryYear(year);
+
+    List<String> errors = validator.validate(request);
+    assertFalse(errors.isEmpty());
+  }
+
   @Test
   void whenExpiryIsCurrentMonthAndYearThenValid() {
     PostPaymentRequest request = validRequest();

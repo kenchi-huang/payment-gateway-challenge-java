@@ -33,7 +33,7 @@ public class AcquiringBankClient {
       }
       return response.getBody();
     } catch (RestClientException ex) {
-      throw new BankUnavailableException("Failed to communicate with acquiring bank");
+      throw new BankUnavailableException("Failed to communicate with acquiring bank", ex);
     }
   }
 }

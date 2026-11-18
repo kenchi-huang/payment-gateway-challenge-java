@@ -25,7 +25,7 @@ public class PaymentValidator {
       errors.add("Invalid card number");
     }
 
-    if (request.getExpiryMonth() >= 1 && request.getExpiryMonth() <= 12 && request.getExpiryYear() > 2000) {
+    if (request.getExpiryMonth() >= 1 && request.getExpiryMonth() <= 12 && request.getExpiryYear() <= 9999 && request.getExpiryYear() >= 0) {
       if (YearMonth.of(request.getExpiryYear(), request.getExpiryMonth()).isBefore(YearMonth.now())) {
         errors.add("Card is expired");
       }

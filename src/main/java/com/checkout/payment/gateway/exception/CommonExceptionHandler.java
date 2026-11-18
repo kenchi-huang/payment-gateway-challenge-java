@@ -19,7 +19,7 @@ public class CommonExceptionHandler {
 
   @ExceptionHandler(EventProcessingException.class)
   public ResponseEntity<ErrorResponse> handleException(EventProcessingException ex) {
-    LOG.error("Exception happened", ex);
+    LOG.warn("Exception happened: {}", ex.getMessage());
     return new ResponseEntity<>(
         new ErrorResponse("Page not found"),
         HttpStatus.NOT_FOUND
@@ -28,7 +28,7 @@ public class CommonExceptionHandler {
 
   @ExceptionHandler(PaymentRejectedException.class)
   public ResponseEntity<RejectedPaymentResponse> handleException(PaymentRejectedException ex) {
-    LOG.error("Payment rejected exception", ex);
+    LOG.warn("Payment rejected: {}", ex.getMessage());
     return new ResponseEntity<>(
         new RejectedPaymentResponse(
             PaymentStatus.REJECTED,
@@ -49,7 +49,7 @@ public class CommonExceptionHandler {
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResponseEntity<RejectedPaymentResponse> handleException(HttpMessageNotReadableException ex) {
-    LOG.error("Payment rejected exception", ex);
+    LOG.warn("Malformed payment request payload");
     return new ResponseEntity<>(
         new RejectedPaymentResponse(
             PaymentStatus.REJECTED,
