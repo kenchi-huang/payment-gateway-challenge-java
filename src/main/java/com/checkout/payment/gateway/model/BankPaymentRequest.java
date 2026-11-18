@@ -10,4 +10,25 @@ public record BankPaymentRequest(
    String currency,
    int amount,
    String cvv
-) {}
+) {
+
+  private String getMaskedCardNumber() {
+    if (cardNumber == null || cardNumber.length() < 4) {
+      return "****";
+    }
+    return "****" + cardNumber.substring(cardNumber.length() - 4);
+  }
+
+  private String getMaskedCvv() { return "***"; }
+
+  @Override
+  public String toString() {
+    return "BankPaymentRequest{" +
+        "cardNumber=" + getMaskedCardNumber() +
+        ", expiryDate=" + expiryDate +
+        ", currency='" + currency + '\'' +
+        ", amount=" + amount +
+        ", cvv=" + getMaskedCvv() +
+        '}';
+  }
+}

@@ -56,11 +56,9 @@ public class PaymentGatewayService {
         paymentRequest.getAmount(),
         paymentRequest.getCvv()
     );
-
     BankPaymentResponse response = acquiringBankClient.processPayment(bankRequest);
 
     PaymentResponse paymentResponse = bankResponseToPaymentResponse(paymentRequest, paymentId, response);
-
     paymentsRepository.add(paymentResponse);
 
     return paymentResponse;
