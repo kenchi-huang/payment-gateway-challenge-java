@@ -23,3 +23,17 @@ docker-compose.yml - configures the bank simulator
 For documentation openAPI is included, and it can be found under the following url: **http://localhost:8090/swagger-ui/index.html**
 
 **Feel free to change the structure of the solution, use a different library etc.**
+
+## Solution Overview
+### Endpoints
+- `POST /payment` - validates and processes a card payment via the acquiring bank (200 OK with Authorized/Declined, 400 Bad Request with Rejected on invalid/malformed input, 502 Bad Gateway if the bank is unavailable)
+- `GET /payment/{id}` - retrieves a previously processed payment by UUID (200 OK with a masked card_number_last_four or 404 Not Found)
+
+### Design Decisions & Assumptions
+
+Key architectural decisions are documented as ADRs in docs/adr/:
+
+- [ADR-001](docs/adr/ADR-001.md): API Contract, JSON Naming, and DTO Separation
+- [ADR-002](docs/adr/ADR-002.md): Request Validation Strategy and Rejected Payment Handling
+- [ADR-003](docs/adr/ADR-003.md): Acquiring Bank Integration and Error Handling
+- [ADR-004](docs/adr/ADR-004.md): Thread-Safe In-Memory Storage & Immutability
